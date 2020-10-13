@@ -9,7 +9,7 @@ int main()
 
 	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
 
-	Board board(9, "res/chessboard.gif");
+	Board board(100, "res/chessboard.gif");
 	Bishop bishop(100, "res/Chess_blt60.png", std::make_pair<int,int>(1,1));
 
 

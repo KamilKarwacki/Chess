@@ -13,7 +13,7 @@ public:
 
 	void snapPieceToGrid(Piece& piece);
 
-	sf::Sprite sprite;
+	sf::RectangleShape sprite;
 private:           
 	void initPieces();
 

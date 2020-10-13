@@ -1,4 +1,5 @@
 #include "Board.h" 
+#include <iostream>
 
 
 // CTOR AND DTOR -------------------------------------------------------
@@ -15,8 +16,9 @@ Board::Board(int cellSize, std::string texturePath)
 	texture.setRepeated(false);
 
 	// bind texture
-	this->sprite.setTexture(texture);
-	this->sprite.setScale(cellSize/10.f,cellSize/10.f);
+	this->sprite.setTexture(&texture);
+	this->sprite.setSize(sf::Vector2f(cellSize*8,cellSize*8));
+	//this->sprite.setScale(cellSize/10.f,cellSize/10.f);
 	// set origin to middle
 	this->sprite.setOrigin(this->sprite.getTextureRect().width/2,
 				   	this->sprite.getTextureRect().height/2);
@@ -33,18 +35,19 @@ void Board::snapPieceToGrid(Piece& piece)
 {
 	sf::Vector2f pos = piece.sprite.getPosition();
 	int x, y;
+	int PieceX = pos.x;
+	int PieceY = pos.y;
 
-	x = cellSize*8 > x ? cellSize*8 : x%cellSize;
-	y = cellSize*8 > y ? cellSize*8 : y%cellSize;
+	x = cellSize*8 <= PieceX ? 8 : PieceX/cellSize + 1;
+	y = cellSize*8 <= PieceY ? 8 : PieceY/cellSize + 1;
 
-	piece.sprite.setPosition(x,y);
+	//scale with cellsize to transform it into the right place on the board
+	piece.sprite.setPosition(x*cellSize -cellSize/2.f,y*cellSize - cellSize/2.f);
 }
-
 
 // PRIVATE FUNCTIONS ----------------------------------------------------
 
 void Board::initPieces()
 {
 		
-
 }
