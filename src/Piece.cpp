@@ -3,7 +3,8 @@
 
 // CTOR and DTOR -------------------------------
 
-Piece::Piece(int size, std::string texturePath, std::pair<int, int> position)
+Piece::Piece(Color color, int size, std::string texturePath, std::pair<int, int> position)
+    : color(color)
 {
 	// handle texture stuff 	
 	if(!texture.loadFromFile(texturePath))
@@ -16,12 +17,11 @@ Piece::Piece(int size, std::string texturePath, std::pair<int, int> position)
 	this->sprite.setTexture(&texture);
 	this->sprite.setSize(sf::Vector2f(size, size));
 	this->sprite.setOrigin(size/2, size/2);
-
-	// set the pieces positio
+    this->sprite.setPosition(size*position.first - size/2, size*position.second - size/2);
+	// set the pieces position
 	this->position = position;
 }
 
-Piece::~Piece(){}
 
 // PUBLIC FUNCTIONS ----------------------------------
 

@@ -3,26 +3,28 @@
 #include<SFML/Graphics.hpp>
 
 #include<utility> // std::pair
+#include "Color.h"
 #include<vector>
 #include<iostream>
 
 class Piece{         
 public:
 	Piece() = default;
-	// site of the sprite
-	Piece(int size, std::string TexturePath, std::pair<int,int> position);
-	virtual ~Piece();	
+    virtual ~Piece() = default;
+    // site of the sprite
+	Piece(Color color, int size, std::string TexturePath, std::pair<int,int> position);
 
 	// will return all moves that are possible
 	virtual std::vector<std::pair<int,int>> possibleMoves();
  
 	sf::RectangleShape sprite;
-	sf::Texture texture;
-private:            
+	Color color;
+private:
+    sf::Texture texture;
 	// did the mouse click on this piece?
 	bool isFocused;
 	// value for the engine
-	int value; 
+	int value;
 	// current position
 	std::pair<int,int> position;
 

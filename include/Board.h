@@ -4,7 +4,15 @@
 
 #include<array>
 #include<string>
+#include<memory>
+
 #include<Piece.h>
+#include<Bishop.h>
+#include<Pawn.h>
+#include<Knight.h>
+#include<Rook.h>
+#include<Queen.h>
+#include<King.h>
 
 class Board {         
 public:
@@ -12,18 +20,16 @@ public:
 	~Board();
 
 	void snapPieceToGrid(Piece& piece);
+    std::vector<std::shared_ptr<Piece>> pieces;
 
 	sf::RectangleShape sprite;
 private:           
 	void initPieces();
 
-	std::vector<Piece> pieces;
-
 	sf::Texture texture;
 
 	int cellSize;	
 	int boardSize;
-
 
 	friend class sf::Mouse;
 };

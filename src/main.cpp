@@ -2,6 +2,7 @@
 #include "Piece.h"
 #include "Bishop.h"
 #include "Board.h"
+#include "Color.h"
 
 
 int main()
@@ -10,8 +11,8 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
 
 	Board board(100, "res/chessboard.gif");
-	Bishop bishop(100, "res/Chess_blt60.png", std::make_pair<int,int>(1,1));
 
+	bool isBeingGrabbed = false;
 
 	while (window.isOpen())
 	{					
@@ -24,8 +25,10 @@ int main()
 			if(event.type == sf::Event::MouseButtonReleased)
 			{
 				if(event.mouseButton.button == sf::Mouse::Left)
-				{
-					board.snapPieceToGrid(bishop);
+                {
+				    for(auto& piece : board.pieces)
+					    board.snapPieceToGrid(*piece);
+				    isBeingGrabbed = false;
 				}
 			}
 		}
@@ -33,19 +36,19 @@ int main()
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-			if(bishop.sprite.getGlobalBounds().contains(mousePos.x, mousePos.y))
-			{
-				bishop.sprite.setPosition(mousePos.x, mousePos.y);
-			}
+            for(const auto& piece : board.pieces)
+			    if(piece->sprite.getGlobalBounds().contains(mousePos.x, mousePos.y))
+		    	{
+		    		piece->sprite.setPosition(mousePos.x, mousePos.y);
+		    		isBeingGrabbed = true;
+		    	}
 		}
-
 
 		window.clear();
 		window.draw(board.sprite);
-		window.draw(bishop.sprite);
-		window.display();
-
-	
+		for(const auto& piece : board.pieces)
+		    window.draw(piece->sprite);
+		window.display();	
 	}
 
 	return 0;

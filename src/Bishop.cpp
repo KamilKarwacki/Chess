@@ -1,12 +1,9 @@
 #include "Bishop.h" 
 
-
 // CTOR AND DTOR ------------------------------------------
-Bishop::Bishop(int size, std::string texturePath, std::pair<int, int> position)
-	: Piece(size,texturePath,position)
+Bishop::Bishop(Color color, int size, std::string texturePath, std::pair<int, int> position)
+	: Piece(color, size, texturePath, position)
 {}
-		
-	
 
 Bishop::~Bishop(){}
 
