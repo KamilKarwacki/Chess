@@ -12,12 +12,12 @@ public:
 
     Knight() = default;
     ~Knight() override;
-    Knight(Color color, int size, std::string texturePath, std::pair<int, int> position);
+    Knight(Color color, int size, std::string texturePath, BoardPosition position);
 
-    std::vector<std::pair<int,int>> possibleMoves() override;
+    std::vector<BoardPosition> possibleMoves() override;
 
 private:
 
-    bool canMoveTo(std::pair<int,int> newPos) override;
+    bool canMoveTo(BoardPosition newPos) override;
 
 };

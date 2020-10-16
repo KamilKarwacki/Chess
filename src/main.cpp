@@ -1,8 +1,6 @@
 #include <SFML/Graphics.hpp>
-#include "Piece.h"
-#include "Bishop.h"
+#include "ChessGame.h"
 #include "Board.h"
-#include "Color.h"
 
 
 int main()
@@ -12,7 +10,9 @@ int main()
 
 	Board board(100, "res/chessboard.gif");
 
-	bool isBeingGrabbed = false;
+	ChessGame game;
+
+	bool isSomePieceGrabbed = false;
 
 	while (window.isOpen())
 	{					
@@ -26,22 +26,16 @@ int main()
 			{
 				if(event.mouseButton.button == sf::Mouse::Left)
                 {
-				    for(auto& piece : board.pieces)
-					    board.snapPieceToGrid(*piece);
-				    isBeingGrabbed = false;
+					game.onLeftClickReleased(board);
 				}
 			}
 		}
 
+		// code for starting movement
 		if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-            for(const auto& piece : board.pieces)
-			    if(piece->sprite.getGlobalBounds().contains(mousePos.x, mousePos.y))
-		    	{
-		    		piece->sprite.setPosition(mousePos.x, mousePos.y);
-		    		isBeingGrabbed = true;
-		    	}
+			game.onLeftClick(board, mousePos.x, mousePos.y);
 		}
 
 		window.clear();

@@ -13,13 +13,17 @@
 #include<Rook.h>
 #include<Queen.h>
 #include<King.h>
+#include "BoardPosition.h"
 
 class Board {         
 public:
 	Board(int cellSize, std::string texturePath);
 	~Board();
 
-	void snapPieceToGrid(Piece& piece);
+	BoardPosition getBoardCoordinatesOfPiece(Piece& piece);
+	// returns a list with all current pieces and their colors
+	std::vector<std::pair<BoardPosition, Color>> getBoardConfiguration();
+    void deletePieceAt(BoardPosition position);
     std::vector<std::shared_ptr<Piece>> pieces;
 
 	sf::RectangleShape sprite;

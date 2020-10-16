@@ -3,8 +3,8 @@
 
 // CTOR and DTOR -------------------------------
 
-Piece::Piece(Color color, int size, std::string texturePath, std::pair<int, int> position)
-    : color(color)
+Piece::Piece(Color color, int size, std::string texturePath, BoardPosition position)
+    : color(color), isFocused(false)
 {
 	// handle texture stuff 	
 	if(!texture.loadFromFile(texturePath))
@@ -17,7 +17,7 @@ Piece::Piece(Color color, int size, std::string texturePath, std::pair<int, int>
 	this->sprite.setTexture(&texture);
 	this->sprite.setSize(sf::Vector2f(size, size));
 	this->sprite.setOrigin(size/2, size/2);
-    this->sprite.setPosition(size*position.first - size/2, size*position.second - size/2);
+    this->sprite.setPosition(size*position.X - size/2, size*position.Y- size/2);
 	// set the pieces position
 	this->position = position;
 }
@@ -25,14 +25,28 @@ Piece::Piece(Color color, int size, std::string texturePath, std::pair<int, int>
 
 // PUBLIC FUNCTIONS ----------------------------------
 
-
-std::vector<std::pair<int,int>> Piece::possibleMoves()
+std::vector<BoardPosition> Piece::possibleMoves()
 {}
 
 
+void Piece::setPosition(BoardPosition pos)
+{
+    int size = sprite.getSize().x;
+    sprite.setPosition(pos.X * size - size/2.f, pos.Y * size - size/2.f);
+    position = pos;
+}
 
+BoardPosition Piece::getPosition() const
+{
+    return position;
+}
+
+Color Piece::getColor() const
+{
+    return color;
+}
 
 
 // PRIVATE FUNCTIONS ------------------------------------
-bool Piece::canMoveTo(std::pair<int,int> newPos)
+bool Piece::canMoveTo(BoardPosition newPos)
 {}
