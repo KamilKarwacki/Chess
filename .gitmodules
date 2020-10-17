@@ -1,0 +1,3 @@
+[submodule "BruteFEngine"]
+	path = Engines/BruteFEngine
+	url = git@github.com:KamilKarwacki/BruteFEngine.git

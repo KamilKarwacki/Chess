@@ -3,7 +3,9 @@
 // CTOR AND DTOR ------------------------------------------
 Pawn::Pawn(Color color, int size, std::string texturePath, BoardPosition position)
         : Piece(color, size, texturePath, position)
-{}
+{
+    type = Type::PAWN; // cant be done in initializer list I think, dont want to change piece constructor
+}
 
 Pawn::~Pawn(){}
 
@@ -16,14 +18,14 @@ std::vector<BoardPosition> Pawn::possibleMoves()
 
     if(color == Color::WHITE)
     {
-        result.push_back(BoardPosition(X, Y+1));
+        result.emplace_back(X, Y+1);
         if(Y == 2)
-            result.push_back(BoardPosition(X, Y+2));
+            result.emplace_back(X, Y+2);
 
     } else{
-        result.push_back(BoardPosition(X, Y-1));
+        result.emplace_back(X, Y-1);
         if(Y == 7)
-            result.push_back(BoardPosition(X, Y-2));
+            result.emplace_back(X, Y-2);
     }
     return result;
 }

@@ -1,4 +1,5 @@
 #include "ChessGame.h"
+#include "SpecialRules.h"
 
 #include <algorithm>
 
@@ -6,10 +7,9 @@
 
 void ChessGame::onLeftClick(Board& board, int x, int y)
 {
-    bool tmp = isSomePieceGrabbed; // need local var for lambda
-    auto pred = [x,y,tmp](auto& p) // we will search for the piece which is hit by the mouse
+    auto pred = [&](auto& p) // we will search for the piece which is hit by the mouse
     {
-        return p->sprite.getGlobalBounds().contains(x,y) and (!tmp or p->isFocused);
+        return p->sprite.getGlobalBounds().contains(x,y) and (!isSomePieceGrabbed or p->isFocused);
     };
     auto piece = std::find_if(board.pieces.begin(), board.pieces.end(), pred);
     if(piece == board.pieces.end())
@@ -35,6 +35,7 @@ void ChessGame::onLeftClickReleased(Board& board)
 
     BoardPosition newPos = board.getBoardCoordinatesOfPiece(*selectedPiece);
     std::vector<BoardPosition> moves = selectedPiece->possibleMoves();
+    SpecialRules::ApplyAllRules(board.getBoardConfiguration(), *selectedPiece, moves);
     if (std::find(moves.begin(), moves.end(), newPos) !=
         moves.end()) // only if its actually a valid move we set the new position
     {

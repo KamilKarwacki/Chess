@@ -1,10 +1,8 @@
 #pragma once 
 
-#include<SFML/Graphics.hpp>
 
 #include "Piece.h"
 #include<string>
-#include<utility>
 
 class Bishop : public Piece {         
 public:

@@ -3,7 +3,9 @@
 // CTOR AND DTOR ------------------------------------------
 Knight::Knight(Color color, int size, std::string texturePath, BoardPosition position)
         : Piece(color, size, texturePath, position)
-{}
+{
+    type = Type::KNIGHT; // cant be done in initializer list I think, dont want to change piece constructor
+}
 
 Knight::~Knight(){}
 
@@ -23,7 +25,7 @@ std::vector<BoardPosition> Knight::possibleMoves()
      {
          // if the new point is inside the board
          if(X + inc.X > 0 and X + inc.X < 9 and Y + inc.Y > 0 and Y + inc.Y < 9)
-             result.push_back(BoardPosition(X + inc.X, Y + inc.Y));
+             result.emplace_back(X + inc.X, Y + inc.Y);
      }
      return result;
 }

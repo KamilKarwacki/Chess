@@ -3,7 +3,9 @@
 // CTOR AND DTOR ------------------------------------------
 Rook::Rook(Color color, int size, std::string texturePath, BoardPosition position)
         : Piece(color, size, texturePath, position)
-{}
+{
+    type = Type::ROOK;
+}
 
 Rook::~Rook(){}
 
@@ -19,7 +21,7 @@ std::vector<BoardPosition> Rook::possibleMoves()
     {
         if(x == X)
             continue;
-        result.push_back(BoardPosition(x,Y));
+        result.emplace_back(x,Y);
     }
 
     // go over all Y directions
@@ -27,7 +29,7 @@ std::vector<BoardPosition> Rook::possibleMoves()
     {
         if(y == Y)
             continue;
-        result.push_back(BoardPosition(X,y));
+        result.emplace_back(X,y);
     }
 
     return result;

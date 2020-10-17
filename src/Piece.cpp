@@ -46,6 +46,11 @@ Color Piece::getColor() const
     return color;
 }
 
+Type Piece::getType() const
+{
+    return type;
+}
+
 
 // PRIVATE FUNCTIONS ------------------------------------
 bool Piece::canMoveTo(BoardPosition newPos)

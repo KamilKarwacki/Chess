@@ -3,7 +3,9 @@
 // CTOR AND DTOR ------------------------------------------
 King::King(Color color, int size, std::string texturePath, BoardPosition position)
         : Piece(color, size, texturePath, position)
-{}
+{
+    type = Type::KING; // cant be done in initializer list I think, dont want to change piece constructor
+}
 
 King::~King(){}
 
@@ -20,14 +22,14 @@ std::vector<BoardPosition> King::possibleMoves()
 
     // fill vector with all possible new positions, CAUTION: duplicates can occur maybe use a set
     std::vector<BoardPosition> result;
-    result.push_back(BoardPosition({lesserX, Y}));
-    result.push_back(BoardPosition({lesserX, lesserY}));
-    result.push_back(BoardPosition({lesserX, biggerY}));
-    result.push_back(BoardPosition({X, lesserY}));
-    result.push_back(BoardPosition({X, biggerY}));
-    result.push_back(BoardPosition({biggerX, Y}));
-    result.push_back(BoardPosition({biggerX, lesserY}));
-    result.push_back(BoardPosition({biggerX, biggerY}));
+    result.emplace_back(lesserX, Y);
+    result.emplace_back(lesserX, lesserY);
+    result.emplace_back(lesserX, biggerY);
+    result.emplace_back(X, lesserY);
+    result.emplace_back(X, biggerY);
+    result.emplace_back(biggerX, Y);
+    result.emplace_back(biggerX, lesserY);
+    result.emplace_back(biggerX, biggerY);
 
     return result;
 }

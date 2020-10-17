@@ -55,15 +55,8 @@ std::vector<std::pair<BoardPosition, Color>> Board::getBoardConfiguration()
 
 void Board::deletePieceAt(BoardPosition position)
 {
-    for(auto it = pieces.begin(); it != pieces.end(); it++)
-        if(it->get()->getPosition() == position)
-            pieces.erase(it);
-
-/*
-    pieces.erase(std::remove_if(pieces.begin(),
-                   pieces.end(),
-                   [position](Piece& p){return p.getPosition() == position;}), pieces.end());
-*/
+    pieces.erase(std::remove_if(pieces.begin(),pieces.end(),
+                   [&position](auto& p){return p->getPosition() == position;}), pieces.end());
 }
 
 // PRIVATE FUNCTIONS ----------------------------------------------------

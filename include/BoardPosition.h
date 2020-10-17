@@ -10,6 +10,6 @@ struct BoardPosition
 	int X, Y;
 	BoardPosition() = default;
 	BoardPosition(int X, int Y) : X(X), Y(Y) {};
-	bool operator==(const BoardPosition& other) {return X == other.X and Y == other.Y;};
+	bool operator==(const BoardPosition& other) const {return X == other.X and Y == other.Y;};
 
 };

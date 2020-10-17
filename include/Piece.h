@@ -22,6 +22,7 @@ public:
 	void setPosition(BoardPosition pos);
 	BoardPosition getPosition() const;
 	Color getColor() const;
+	Type getType() const;
  
 	sf::RectangleShape sprite;
 	// did the mouse click on this piece?
@@ -31,6 +32,7 @@ protected:
 	// value for the engine
 	int value;
     Color color;
+    Type type;
 	// current position
 	BoardPosition position;
 
